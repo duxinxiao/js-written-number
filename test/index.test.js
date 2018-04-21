@@ -229,7 +229,7 @@ describe("written-number", function() {
     });
   });
 
-describe("writtenNumber(n, { lang: 'ptPT', ... })", function() {
+  describe("writtenNumber(n, { lang: 'ptPT', ... })", function() {
     before(function() {
       writtenNumber.defaults.lang = "ptPT";
     });
@@ -600,4 +600,169 @@ describe("writtenNumber(n, { lang: 'ptPT', ... })", function() {
       );
     });
   });
+
+  describe("writtenNumber(n, { lang: 'zh', ... })", function() {
+    before(function() {
+      writtenNumber.defaults.lang = "zh";
+    });
+
+    it("gets exposed", function() {
+      should.exist(writtenNumber);
+      writtenNumber.should.be.instanceof(Function);
+    });
+
+    it("negative numbers return \"\"", function() {
+      writtenNumber(-3).should.equal("");
+      writtenNumber(-5).should.equal("");
+    });
+
+    it("doesn't blow up weirdly with invalid input", function() {
+      writtenNumber("asdfasdfasdf").should.equal("");
+      writtenNumber("0.as").should.equal("");
+      writtenNumber("0.123").should.equal("零");
+      writtenNumber("0.8").should.equal("壹");
+      writtenNumber("2.8").should.equal("叁");
+      writtenNumber("asdf.8").should.equal("");
+      writtenNumber("120391938123..").should.equal("");
+      writtenNumber("1000000000.123").should.equal("拾 亿");
+      writtenNumber("1/3").should.equal("");
+      writtenNumber(1 / 3).should.equal("零");
+      writtenNumber("1/2").should.equal("");
+      writtenNumber("1.123/2").should.equal("");
+    });
+
+    it("correctly converts numbers < 10", function() {
+      writtenNumber(3).should.equal("叁");
+      writtenNumber(8).should.equal("捌");
+    });
+
+    it("correctly converts numbers < 20", function() {
+      writtenNumber(13).should.equal("拾叁");
+      writtenNumber(19).should.equal("拾玖");
+    });
+
+    it("correctly converts numbers < 100", function() {
+      writtenNumber(20).should.equal("贰拾");
+      writtenNumber(25).should.equal("贰拾伍");
+      writtenNumber(88).should.equal("捌拾捌");
+      writtenNumber(73).should.equal("柒拾叁");
+    });
+
+    it("correctly converts numbers < 1000", function() {
+      writtenNumber(200).should.equal("贰 佰");
+      writtenNumber(242).should.equal("贰 佰 肆拾贰");
+      writtenNumber(1234).should.equal(
+        "壹 仟 贰 佰 叁拾肆"
+      );
+      writtenNumber(4323).should.equal(
+        "肆 仟 叁 佰 贰拾叁"
+      );
+    });
+
+    it("correctly converts numbers > 1000", function() {
+      writtenNumber(4323000).should.equal(
+        "肆 佰 叁拾贰 万 叁 仟"
+      );
+      writtenNumber(4323055).should.equal(
+        "肆 佰 叁拾贰 万 叁 仟 伍拾伍"
+      );
+      writtenNumber(1570025).should.equal(
+        "壹 佰 伍拾柒 万 贰拾伍"
+      );
+    });
+
+    it("correctly converts numbers > 1 000 000 000", function() {
+      writtenNumber(1000000000).should.equal("拾 亿");
+      writtenNumber(2580000000).should.equal(
+        "贰拾伍 亿 捌 仟 万"
+      );
+      writtenNumber(1000000000000).should.equal("壹 万 亿");
+      writtenNumber(3627000000000).should.equal(
+        "叁 万 陆 仟 贰 佰 柒拾 亿"
+      );
+    });
+  });
+
+  describe("writtenNumber(n, { lang: 'zh', ... })", function() {
+    before(function() {
+      writtenNumber.defaults.lang = "id";
+    });
+
+    it("gets exposed", function() {
+      should.exist(writtenNumber);
+      writtenNumber.should.be.instanceof(Function);
+    });
+
+    it("negative numbers return \"\"", function() {
+      writtenNumber(-3).should.equal("");
+      writtenNumber(-5).should.equal("");
+    });
+
+    it("doesn't blow up weirdly with invalid input", function() {
+      writtenNumber("asdfasdfasdf").should.equal("");
+      writtenNumber("0.as").should.equal("");
+      writtenNumber("0.123").should.equal("零");
+      writtenNumber("0.8").should.equal("壹");
+      writtenNumber("2.8").should.equal("叁");
+      writtenNumber("asdf.8").should.equal("");
+      writtenNumber("120391938123..").should.equal("");
+      writtenNumber("1000000000.123").should.equal("拾 亿");
+      writtenNumber("1/3").should.equal("");
+      writtenNumber(1 / 3).should.equal("零");
+      writtenNumber("1/2").should.equal("");
+      writtenNumber("1.123/2").should.equal("");
+    });
+
+    it("correctly converts numbers < 10", function() {
+      writtenNumber(3).should.equal("叁");
+      writtenNumber(8).should.equal("捌");
+    });
+
+    it("correctly converts numbers < 20", function() {
+      writtenNumber(13).should.equal("拾叁");
+      writtenNumber(19).should.equal("拾玖");
+    });
+
+    it("correctly converts numbers < 100", function() {
+      writtenNumber(20).should.equal("贰拾");
+      writtenNumber(25).should.equal("贰拾伍");
+      writtenNumber(88).should.equal("捌拾捌");
+      writtenNumber(73).should.equal("柒拾叁");
+    });
+
+    it("correctly converts numbers < 1000", function() {
+      writtenNumber(200).should.equal("贰 佰");
+      writtenNumber(242).should.equal("贰 佰 肆拾贰");
+      writtenNumber(1234).should.equal(
+        "壹 仟 贰 佰 叁拾肆"
+      );
+      writtenNumber(4323).should.equal(
+        "肆 仟 叁 佰 贰拾叁"
+      );
+    });
+
+    it("correctly converts numbers > 1000", function() {
+      writtenNumber(4323000).should.equal(
+        "肆 佰 叁拾贰 万 叁 仟"
+      );
+      writtenNumber(4323055).should.equal(
+        "肆 佰 叁拾贰 万 叁 仟 伍拾伍"
+      );
+      writtenNumber(1570025).should.equal(
+        "壹 佰 伍拾柒 万 贰拾伍"
+      );
+    });
+
+    it("correctly converts numbers > 1 000 000 000", function() {
+      writtenNumber(1000000000).should.equal("拾 亿");
+      writtenNumber(2580000000).should.equal(
+        "贰拾伍 亿 捌 仟 万"
+      );
+      writtenNumber(1000000000000).should.equal("壹 万 亿");
+      writtenNumber(3627000000000).should.equal(
+        "叁 万 陆 仟 贰 佰 柒拾 亿"
+      );
+    });
+  });
+
 });
