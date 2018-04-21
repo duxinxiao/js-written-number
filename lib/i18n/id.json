@@ -1,6 +1,6 @@
 {
   "useLongScale": false,
-  "baseSeparator": "",
+  "baseSeparator": " ",
   "unitSeparator": "",
   "base": {
     "0": "nol",
@@ -31,7 +31,8 @@
     "70": "tujuh puluh",
     "80": "delapan puluh",
     "90": "sembilan puluh",
-    "100": "seratus"
+    "100": "seratus",
+    "1000": "seribu"
   },
   "units" : [
     "ratus",
